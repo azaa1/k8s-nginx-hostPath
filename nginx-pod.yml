@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels: 
+    app: nginx-app
+spec:
+  volumes:
+  - name: nginx-pv-volume
+    hostPath:
+      path: "/home/ubuntu/data/app-data"
+  containers: 
+  - image: nginx
+    name: nginx-pod
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      name: nginx-pv-volume
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP
